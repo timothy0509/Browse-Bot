@@ -56,6 +56,8 @@ const PREFS = {
   MISTRAL_MODEL: "extension.browse-bot.mistral-model",
   GEMINI_API_KEY: "extension.browse-bot.gemini-api-key",
   GEMINI_MODEL: "extension.browse-bot.gemini-model",
+  MINIMAX_API_KEY: "extension.browse-bot.minimax-api-key",
+  MINIMAX_MODEL: "extension.browse-bot.minimax-model",
   OPENAI_API_KEY: "extension.browse-bot.openai-api-key",
   OPENAI_MODEL: "extension.browse-bot.openai-model",
   CLAUDE_API_KEY: "extension.browse-bot.claude-api-key",
@@ -391,6 +393,8 @@ PREFS.defaultValues = {
   [PREFS.MISTRAL_MODEL]: "mistral-medium-latest",
   [PREFS.GEMINI_API_KEY]: "",
   [PREFS.GEMINI_MODEL]: "gemini-2.5-flash",
+  [PREFS.MINIMAX_API_KEY]: "",
+  [PREFS.MINIMAX_MODEL]: "MiniMax-M2.1",
   [PREFS.OPENAI_API_KEY]: "",
   [PREFS.OPENAI_MODEL]: "gpt-5.2",
   [PREFS.CLAUDE_API_KEY]: "",
@@ -4587,6 +4591,27 @@ const gemini = Object.assign(Object.create(providerPrototype), {
   create: createGoogleGenerativeAI,
 });
 
+const minimax = Object.assign(Object.create(providerPrototype), {
+  name: "minimax",
+  label: "MiniMax",
+  faviconUrl: googleFaviconAPI("minimax.io"),
+  apiKeyUrl: "https://platform.minimax.io",
+  AVAILABLE_MODELS: ["MiniMax-M2.1", "MiniMax-M2.1-lightning", "MiniMax-M2"],
+  AVAILABLE_MODELS_LABELS: {
+    "MiniMax-M2.1": "MiniMax M2.1",
+    "MiniMax-M2.1-lightning": "MiniMax M2.1 Lightning",
+    "MiniMax-M2": "MiniMax M2",
+  },
+  modelPref: PREFS.MINIMAX_MODEL,
+  apiPref: PREFS.MINIMAX_API_KEY,
+  create: ({ apiKey }) =>
+    createOpenAI({
+      apiKey,
+      baseURL: "https://api.minimax.io/v1",
+      name: "minimax",
+    }),
+});
+
 const openai = Object.assign(Object.create(providerPrototype), {
   name: "openai",
   label: "OpenAI GPT",
@@ -4870,6 +4895,7 @@ class LLM {
       claude: claude,
       gemini: gemini,
       grok: grok,
+      minimax: minimax,
       mistral: mistral,
       ollama: ollama,
       openai: openai,
