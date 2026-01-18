@@ -76,6 +76,10 @@
         "label": "Mistral AI"
       },
       {
+        "value": "minimax",
+        "label": "MiniMax"
+      },
+      {
         "value": "ollama",
         "label": "Ollama (local)"
       },
@@ -401,6 +405,51 @@
         "if": {
           "property": "extension.browse-bot.llm-provider",
           "value": "mistral"
+        }
+      }
+    ]
+  },
+  {
+    "property": "extension.browse-bot.minimax-api-key",
+    "label": "MiniMax API Key",
+    "type": "string",
+    "placeholder": "Enter your MiniMax API key",
+    "default": "",
+    "description": "Your personal API key from MiniMax. Required to use MiniMax models.",
+    "conditions": [
+      {
+        "if": {
+          "property": "extension.browse-bot.llm-provider",
+          "value": "minimax"
+        }
+      }
+    ]
+  },
+  {
+    "property": "extension.browse-bot.minimax-model",
+    "label": "MiniMax Model",
+    "type": "dropdown",
+    "default": "MiniMax-M2.1",
+    "description": "Select the MiniMax model to use.",
+    "options": [
+      {
+        "value": "MiniMax-M2.1",
+        "label": "MiniMax M2.1"
+      },
+      {
+        "value": "MiniMax-M2.1-lightning",
+        "label": "MiniMax M2.1 Lightning"
+      },
+      {
+        "value": "MiniMax-M2",
+        "label": "MiniMax M2"
+      }
+    ],
+    "conditions": [
+      {
+        "if": {
+          "property": "extension.browse-bot.llm-provider",
+          "value": "minimax"
         }
       }
     ]
